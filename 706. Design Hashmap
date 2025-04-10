@@ -1,0 +1,62 @@
+## Leetcode Problem 706. Design Hashmap
+### Design a HashMap without using any built-in hash table libraries.
+
+---
+  
+```cpp
+class MyHashMap {
+public:
+    MyHashMap() {
+        //vector<pair<int, int>> hashMap;
+    }
+    
+    void put(int key, int value) {
+        for (auto& x: hashMap) {   // with the 'reference(&)' to actually modify the value
+            if (x.first == key) {
+                x.second = value;
+                return;
+            } 
+        }
+        hashMap.push_back({key, value});   // outside of the for loop
+    }
+    
+    int get(int key) {
+        for (const auto& x: hashMap) {
+            if (x.first == key) {
+                return x.second;
+            }
+        }
+        return  -1;
+    }
+/*
+    void remove(int key) {
+        for (auto& x: hashMap) {
+            if (x.first == key) {
+                x.erase();
+            }
+        }
+    }
+*/
+    
+    void remove(int key) {
+        for (auto it = hashMap.begin(); it != hashMap.end(); it++) {
+            if (it->first == key) {
+                hashMap.erase(it);
+                return;
+            }
+        }
+    }
+
+private: 
+    vector<pair<int, int>> hashMap;
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
+
+```
